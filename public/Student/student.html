@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Dashboard</title>
+  <style>
+    /* Base styles */
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #fcfcf9;
+      background-image: url('http://localhost:3000/assets/wp1.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+      /* background-image: url("http://localhost:3000/assets/Studentimg.jpg"); */
+      /* animation: gradientBackground 20s infinite alternate; */
+    }
+
+    /* @keyframes gradientBackground {
+      0% { background: linear-gradient(45deg, #1e90ff, #6a5acd); }
+      25% { background: linear-gradient(45deg, #6a5acd, #ff7f50); }
+      50% { background: linear-gradient(45deg, #ff7f50, #32cd32); }
+      75% { background: linear-gradient(45deg, #32cd32, #ff69b4); }
+      100% { background: linear-gradient(45deg, #ff69b4, #1e90ff); }
+    } */
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.5);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    #logoutBtn {
+      background: #ff6b6b;
+      border: none;
+      color: #fff;
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s ease;
+    }
+
+    #logoutBtn:hover {
+      background: #ff4c4c;
+    }
+
+    #logoutBtn::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 0;
+      height: 0;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 50%;
+      transition: width 0.6s, height 0.6s;
+    }
+
+    #logoutBtn:active::after {
+      width: 200px;
+      height: 200px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      width: 100%;
+    }
+
+    /* Card styles */
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      text-align: center;
+      padding: 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, background 0.3s ease;
+      cursor: pointer;
+      animation: floatTilt 3s ease-in-out infinite;
+    }
+
+    .card:hover {
+      transform: translateY(-10px) scale(1.05) rotateX(10deg);
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    /* @keyframes floatTilt {
+      0%, 100% {
+        transform: translateY(0) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-10px) rotate(2deg);
+      }
+    } */
+
+    .card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      color: #edecec;
+    }
+
+    .card p {
+      color: #f8f8f8;
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 1.5rem;
+      }
+
+      .card {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Student Dashboard</h1>
+    <!-- <button class="logout-button" onclick="logout()">Logout</button> -->
+    <button id="logoutBtn">Logout</button>
+  </header>
+
+  <div class="container">
+    <h2>Hello, <span id="studentName">Student</span>!</h2>
+    <p>Choose an option to get started:</p>
+
+   <div class="grid">
+      <!-- Virtual ID Card -->
+      <div class="card" onclick="navigateTo('/search')">
+        <h3>Virtual ID Card</h3>
+        <p>View your digital student ID card.</p>
+      </div>
+
+      <!-- Notice Board -->
+      <div class="card" onclick="navigateTo('/notices')">
+        <h3>Notice Board</h3>
+        <p>Check the latest announcements and notices.</p>
+      </div>
+
+      <!-- Exam Results -->
+      <div class="card" onclick="navigateTo('/RSearch')">
+        <h3>Exam Results</h3>
+        <p>Access your exam results.</p>
+      </div>
+
+      <!-- Hall Ticket Generation -->
+      <div class="card" onclick="navigateTo('/TSearch')">
+        <h3>Hall Ticket</h3>
+        <p>Generate and download your exam hall ticket.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Fetch the student's name from the backend or local storage
+    document.addEventListener('DOMContentLoaded', () => {
+      const studentName = localStorage.getItem('studentName') || 'Student';
+      document.getElementById('studentName').innerText = studentName;
+    });
+
+    // Navigation function for cards
+    function navigateTo(route) {
+      window.location.href = route; // Replace with dynamic routing logic
+    }
+
+    // Logout function
+
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+    fetch("/logout", {
+        method: "POST",
+        credentials: "include" // Ensures cookies are sent with the request
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.message) {
+            alert("Logout successful!");
+            window.location.href = "/"; // Redirect to MainPage
+        }
+    })
+    .catch(error => console.error("Logout Error:", error));
+    });
+
+
+    // function logout() {
+    //   localStorage.clear();
+    //   window.location.href = 'http://localhost:3000/login'; // Ensure the '/login' route is handled on the server
+    // }
+  </script>
+</body>
+</html>
+

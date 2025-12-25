@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Student - ID Card Management</title>
+  <style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1 {
+    text-align: center;
+    color: #333;
+  }
+  
+  form {
+    margin-bottom: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+  }
+  
+  input, button {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  #studentDetails {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: #f9f9f9;
+  }
+  
+  footer {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  footer a {
+    text-decoration: none;
+    color: #007bff;
+  }
+  footer a:hover {
+    text-decoration: underline;
+  }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Search Student by Phone</h1>
+
+    <section>
+      <form id="searchStudentForm">
+        <div class="form-group">
+          <label for="search_phone">Phone Number:</label>
+          <input type="text" id="search_phone" name="phone" required>
+        </div>
+        <button type="submit">Search</button>
+      </form>
+      <div id="studentDetails"></div>
+    </section>
+  </div>
+
+   <script>
+    document.getElementById('searchStudentForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const phone = document.getElementById('search_phone').value.trim();
+
+  try {
+    const response = await fetch(`/Card/${phone}`);
+
+    if (response.ok) {
+      const student = await response.json();
+
+      // Display student details
+      document.getElementById('studentDetails').innerHTML = `
+        <h3>Student Details</h3>
+        <p><strong>Full Name:</strong> ${student.full_name}</p>
+        <p><strong>Email:</strong> ${student.email}</p>
+        <p><strong>Phone:</strong> ${student.phone}</p>
+        <p><strong>Date of Birth:</strong> ${student.dob}</p>
+        <img src="${student.photo_path}" alt="Student Photo" style="max-width: 100%;">
+      `;
+    } else {
+      document.getElementById('studentDetails').innerHTML = '<p>No student found with the provided phone number.</p>';
+    }
+  } catch (err) {
+    console.error(err);
+    document.getElementById('studentDetails').innerHTML = '<p>An error occurred. Please try again.</p>';
+  }
+});
+
+   </script>
+</body>
+</html>

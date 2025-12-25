@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(45deg, #6a11cb, #2575fc);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    /* Background Animation */
+    .background {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+    .background span {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      animation: float 8s infinite ease-in-out;
+      opacity: 0.8;
+    }
+    .background span:nth-child(1) {
+      top: 20%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+    .background span:nth-child(2) {
+      top: 50%;
+      left: 20%;
+      animation-delay: 2s;
+    }
+    .background span:nth-child(3) {
+      top: 30%;
+      left: 80%;
+      animation-delay: 4s;
+    }
+    .background span:nth-child(4) {
+      top: 70%;
+      left: 50%;
+      animation-delay: 6s;
+    }
+    .background span:nth-child(5) {
+      top: 80%;
+      left: 90%;
+      animation-delay: 8s;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+
+    /* Login Form Container */
+    .form-container {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      width: 400px;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* Form Elements */
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 24px;
+      color: #333;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #333;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .submit-btn {
+      width: 100%;
+      padding: 10px;
+      background: linear-gradient(45deg, #6a11cb, #2575fc);
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .submit-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4);
+    }
+    .register-link {
+      text-align: center;
+      margin-top: 10px;
+      color: #333;
+    }
+    .register-link a {
+      color: #6a11cb;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .register-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  
+  <!-- Background Animation -->
+  <div class="background">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <!-- Login Form -->
+  <div class="form-container">
+    <h2>Student Login</h2>
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="uniqueId">Unique ID</label>
+        <input type="text" id="uniqueId" name="uniqueId" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <button type="submit" class="submit-btn">Login</button>
+    </form>
+    <div class="register-link">
+      Don't have an account? <a href="http://localhost:3000/register">Register here</a>
+    </div>
+  </div>
+
+  <script>
+      //  document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      //       e.preventDefault();
+      //       const uniqueId = document.getElementById('uniqueId').value;
+      //       const password = document.getElementById('password').value;
+
+      //       const response = await fetch('http://localhost:3000/login', {
+      //           method: 'POST',
+      //           headers: { 'Content-Type': 'application/json' },
+      //           body: JSON.stringify({ uniqueId, password }),
+      //       });
+
+      //       const result = await response.json();
+      //       if (response.ok) {
+      //           alert('Login successful!');
+      //       } else {
+      //           alert(result.error);
+      //       }
+      //   });
+
+
+      
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const uniqueId = document.getElementById('uniqueId').value;
+        const password = document.getElementById('password').value;
+
+        const response = await fetch('http://localhost:3000/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ uniqueId, password }),
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+            alert('Login successful!');
+            // Redirect to the student dashboard or login page
+            window.location.href = 'http://localhost:3000/student'; // Replace with your student login page URL
+        } else {
+            alert(result.error);
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hall Creation</title>
+     <style>
+       
+       .container {
+    max-width: 600px;  /* Adjust width */
+    margin: 50px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Ensure inputs don't stretch too wide */
+input[type="text"],
+input[type="file"] {
+    width: calc(100% - 20px);  /* Prevent full-page stretching */
+    max-width: 100%; /* Avoid overflow */
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    display: block;
+}
+
+/* Fix weird gaps */
+.form-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Improve button layout */
+button {
+    width: 100%;
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #000; /* Black border */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #f9f9f9; /* Light gray background */
+}
+
+input[type="text"],
+input[type="file"],
+input[type="date"] {
+    width: calc(100% - 20px);
+    max-width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    display: block;
+}
+
+
+     </style>
+    
+</head>
+<body>
+   
+    <form id="addStudentForm1" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="Name">Name Of Student:</label>
+            <input type="text" id="Name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="Id">Student Id:</label>
+            <input type="text" id="Id" name="studentId" required>
+        </div>
+        <div class="form-group">
+            <label for="photo">Photo:</label>
+            <input type="file" id="photo" name="photo" accept="image/*" required>
+        </div>
+    
+        <!-- Subject 1 -->
+        <div class="form-group">
+            <label for="Subject1">Subject 1</label>
+            <input type="text" id="Subject1" name="subject1">
+            <label for="Date1">Exam Date:</label>
+            <input type="date" id="Date1" name="date1">
+        </div>
+    
+        <!-- Subject 2 -->
+        <div class="form-group">
+            <label for="Subject2">Subject 2</label>
+            <input type="text" id="Subject2" name="subject2">
+            <label for="Date2">Exam Date:</label>
+            <input type="date" id="Date2" name="date2">
+        </div>
+    
+        <!-- Subject 3 -->
+        <div class="form-group">
+            <label for="Subject3">Subject 3</label>
+            <input type="text" id="Subject3" name="subject3">
+            <label for="Date3">Exam Date:</label>
+            <input type="date" id="Date3" name="date3">
+        </div>
+    
+        <!-- Subject 4 -->
+        <div class="form-group">
+            <label for="Subject4">Subject 4</label>
+            <input type="text" id="Subject4" name="subject4">
+            <label for="Date4">Exam Date:</label>
+            <input type="date" id="Date4" name="date4">
+        </div>
+    
+        <!-- Subject 5 -->
+        <div class="form-group">
+            <label for="Subject5">Subject 5</label>
+            <input type="text" id="Subject5" name="subject5">
+            <label for="Date5">Exam Date:</label>
+            <input type="date" id="Date5" name="date5">
+        </div>
+    
+        <button type="submit">Create Hall Ticket</button>
+    </form>
+    
+
+   
+ <script>
+    
+    document.getElementById('addStudentForm1').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const form = e.target;
+    const formData = new FormData(form);
+
+    // Collect subjects & exam dates as arrays
+    const subjects = [];
+    const examDates = [];
+
+    for (let i = 1; i <= 5; i++) {
+        const subject = document.getElementById(`Subject${i}`).value.trim();
+        const date = document.getElementById(`Date${i}`).value.trim();
+        if (subject && date) {
+            subjects.push(subject);
+            examDates.push(date);
+        }
+    }
+
+    // Convert to JSON strings before sending
+    formData.append("subjects", JSON.stringify(subjects));
+    formData.append("examDates", JSON.stringify(examDates));
+
+    try {
+        const response = await fetch('/HallCreate', {
+            method: 'POST',
+            body: formData,
+        });
+
+        if (response.ok) {
+            alert('Hall Ticket Created Successfully!');
+            form.reset();
+        } else {
+            alert('Failed to add student. Please try again.');
+        }
+    } catch (err) {
+        console.error(err);
+        alert('An error occurred. Please try again.');
+    }
+});
+
+
+</script>
+
+</body>
+</html>

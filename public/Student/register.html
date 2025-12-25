@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Registration</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fbc2eb, #a1c4fd, #c2e9fb);
+      background-size: 300% 300%;
+      animation: gradientAnimation 8s ease infinite;
+    }
+
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .form-container {
+      background: rgba(255, 255, 255, 0.3); /* Slightly darker transparent white */
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      width: 350px;
+      backdrop-filter: blur(10px); /* Adds a frosted glass effect */
+    }
+    .form-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.7); /* Semi-transparent dark background */
+      color: #ffffff; /* Bright white for text */
+      font-weight: bold;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #333;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .submit-btn {
+      width: 100%;
+      padding: 10px;
+      background: #00d4ff; /* Bright blue button */
+      color: #ffffff;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .submit-btn:hover {
+      background: #007bff; /* Darker blue on hover */
+    }
+    .login-link {
+      text-align: center;
+      margin-top: 10px;
+      color: #333;
+    }
+    .login-link a {
+      color: #007bff;
+      text-decoration: none;
+    }
+    .login-link a:hover {
+      text-decoration: underline;
+      color: #007bff;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Student Registration</h2>
+    <form id="registrationForm">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <button type="submit" class="submit-btn">Register</button>
+    </form>
+    <div class="login-link">
+      Already registered? <a href="http://localhost:3000/login">Login here</a>
+    </div>
+  </div>
+  <script>
+    document.getElementById('registrationForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        try {
+            const response = await fetch('http://localhost:3000/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, password }),
+            });
+
+            const result = await response.json();
+            alert(result.message);
+        } catch (err) {
+            alert('An error occurred during registration.');
+            console.error(err);
+        }
+    });
+  </script>
+</body>
+</html>

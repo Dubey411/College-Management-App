@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Section</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('http://localhost:3000/assets/pexels-pixabay-289737.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            color: #fff;
+        }
+
+        .navbar {
+            display: flex;
+            flex-direction: column;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .navbar h1 {
+            font-size: 1.5rem;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #f4f8f7;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            padding: 15px;
+            font-size: 1rem;
+            color: #fff;
+            margin: 10px 0;
+            text-align: center;
+            display: block;
+            border-radius: 25px;
+            background: linear-gradient(90deg, #1abc9c, #3498db);
+            transition: transform 0.2s ease, background 0.3s ease;
+        }
+
+        .navbar a:hover {
+            transform: scale(1.05);
+            background: linear-gradient(90deg, #3498db, #1abc9c);
+        }
+
+        main {
+            margin-left: 270px;
+            padding: 20px;
+        }
+
+        section {
+            margin-bottom: 30px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        section h2 {
+            margin-top: 0;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                width: 200px;
+            }
+
+            main {
+                margin-left: 220px;
+            }
+
+            .navbar a {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                width: 100%;
+                height: auto;
+                flex-direction: row;
+                overflow-x: auto;
+            }
+
+            .navbar h1 {
+                display: none;
+            }
+
+            main {
+                margin-left: 0;
+            }
+
+            .navbar a {
+                margin: 5px;
+                padding: 10px;
+                flex: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>Faculty Section</h1>
+        <a href="http://localhost:3000/collection">Student ID</a>
+        <!-- <a href="Attendance.html">Attendance</a> -->
+        <a href="/HallCreate">Hall Ticket</a>
+        <a href="/marks">Exam Result</a>
+        <a href="/">Logout</a>
+    </div>
+
+    <main>
+        <section>
+            <h2>Welcome to the Faculty Section</h2>
+            <p>This portal allows faculty members to manage student information effectively. Use the navigation bar to access specific sections.</p>
+        </section>
+        <section>
+            <h2>Latest Updates</h2>
+            <p>Stay tuned for the latest updates and notifications relevant to the faculty and students.</p>
+        </section>
+    </main>
+</body>
+</html>

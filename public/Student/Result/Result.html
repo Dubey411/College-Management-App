@@ -1,0 +1,123 @@
+ <!DOCTYPE html> 
+ <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Student Result</title>
+    <style>
+       
+        body {
+          font-family: Arial, sans-serif;
+          background-color: #f4f7fc;
+          margin: 0;
+          padding: 0;
+          
+        }
+
+        h1 {
+          text-align: center;
+          color: #2c3e50;
+          margin-top: 30px;
+          animation: slideDown 1.5s ease-in-out;
+        }
+
+        form {
+          max-width: 600px;
+          margin: 30px auto;
+          padding: 20px;
+          background-color: #fff;
+          border-radius: 10px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          opacity: 0;
+          transform: translateY(50px);
+          animation: formFadeIn 1s ease-in-out forwards;
+        }
+
+        label {
+          font-size: 1rem;
+          margin-bottom: 5px;
+          color: #34495e;
+        }
+
+        input[type="text"],
+        input[type="submit"] {
+          width: 100%;
+          padding: 12px;
+          margin: 10px 0;
+          border: 1px solid #ccc;
+          border-radius: 8px;
+          box-sizing: border-box;
+          font-size: 1rem;
+          transition: all 0.3s ease;
+        }
+
+        /* Hover and Focus Animations */
+        input[type="text"]:focus {
+          border-color: #3498db;
+          box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
+          transform: scale(1.05);
+        }
+
+        input[type="submit"] {
+          background-color: #3498db;
+          color: white;
+          cursor: pointer;
+          transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        input[type="submit"]:hover {
+          background-color: #2980b9;
+          transform: scale(1.05);
+        }
+
+        input[type="submit"]:active {
+          background-color: #1d6fa5;
+        }
+
+        input[type="text"]:focus {
+          outline: none;
+        }
+
+        form input {
+          margin-bottom: 15px;
+        }
+
+        /* Animations */
+        @keyframes slideDown {
+          from {
+            transform: translateY(-50px);
+            opacity: 0;
+          }
+          to {
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
+
+        @keyframes formFadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Search Student Result</h1>
+
+    <form action="/search-result" method="POST">
+        <label for="studentId">Enter Student ID:</label><br>
+        <input type="text" id="studentId" name="studentId" required><br><br>
+
+        <input type="submit" value="Search Result">
+    </form>
+</body>
+</html>
+
+
+

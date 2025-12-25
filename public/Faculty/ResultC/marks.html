@@ -1,0 +1,140 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Marks</title>
+    <style>
+      /* Global Styles */
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f7fc;
+        margin: 0;
+        padding: 0;
+      }
+    
+      h1 {
+        text-align: center;
+        color: #2c3e50;
+        margin-top: 30px;
+      }
+    
+      form {
+        max-width: 600px;
+        margin: 30px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        opacity: 0;
+        transform: translateY(50px);
+        animation: slideIn 1s ease-out forwards;
+      }
+    
+      label {
+        font-size: 1rem;
+        margin-bottom: 5px;
+        color: #34495e;
+      }
+    
+      input[type="text"],
+      input[type="number"],
+      input[type="submit"] {
+        width: 100%;
+        padding: 12px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-sizing: border-box;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+      }
+    
+      /* Hover and Focus Animations */
+      input[type="text"]:focus,
+      input[type="number"]:focus {
+        border-color: #3498db;
+        box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
+      }
+    
+      input[type="submit"] {
+        background-color: #3498db;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+      }
+    
+      input[type="submit"]:hover {
+        background-color: #2980b9;
+        transform: scale(1.05);
+      }
+    
+      input[type="submit"]:active {
+        background-color: #1d6fa5;
+      }
+    
+      input[type="text"]:focus,
+      input[type="number"]:focus {
+        outline: none;
+      }
+    
+      form input {
+        margin-bottom: 15px;
+      }
+    
+      /* Slide-in animation for the form */
+      @keyframes slideIn {
+        0% {
+          opacity: 0;
+          transform: translateY(50px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    
+    </style>
+    
+    
+</head>
+<body>
+    <h1>Submit Student Marks</h1>
+
+    <form action="/submit-marks" method="POST">
+        <label for="studentId">Student ID:</label><br>
+        <input type="text" id="studentId" name="studentId" required><br><br>
+
+        <label for="studentName">Student Name:</label><br>
+        <input type="text" id="studentName" name="studentName" required><br><br>
+
+        <label for="subject1">Subject 1:</label><br>
+        <input type="text" id="subject1" name="subject1" required><br><br>
+        <label for="marks1">Marks:</label><br>
+        <input type="number" id="marks1" name="marks1" required><br><br>
+
+        <label for="subject2">Subject 2:</label><br>
+        <input type="text" id="subject2" name="subject2" required><br><br>
+        <label for="marks2">Marks:</label><br>
+        <input type="number" id="marks2" name="marks2" required><br><br>
+
+        <label for="subject3">Subject 3:</label><br>
+        <input type="text" id="subject3" name="subject3" required><br><br>
+        <label for="marks3">Marks:</label><br>
+        <input type="number" id="marks3" name="marks3" required><br><br>
+
+        <label for="subject4">Subject 4:</label><br>
+        <input type="text" id="subject4" name="subject4" required><br><br>
+        <label for="marks4">Marks:</label><br>
+        <input type="number" id="marks4" name="marks4" required><br><br>
+
+        <label for="subject5">Subject 5:</label><br>
+        <input type="text" id="subject5" name="subject5" required><br><br>
+        <label for="marks5">Marks:</label><br>
+        <input type="number" id="marks5" name="marks5" required><br><br>
+
+        <input type="submit" value="Submit Marks">
+    </form>
+</body>
+</html>
